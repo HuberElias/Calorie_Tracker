@@ -25,11 +25,14 @@
     <p id="ergebnisse">...</p>
 
     <script>
-        localStorage.setItem("kcal", 0)
-        localStorage.setItem("gram", 0)
-        localStorage.setItem("protein", 0)
-        localStorage.setItem("fat", 0)
-        localStorage.setItem("carbs", 0)
+        if(!localStorage.getItem("kcal")){
+            localStorage.setItem("kcal", 0)
+            localStorage.setItem("gram", 0)
+            localStorage.setItem("protein", 0)
+            localStorage.setItem("fat", 0)
+            localStorage.setItem("carbs", 0)
+        }
+        
 
         function on_hinzufugen_click(){
             calculate()
