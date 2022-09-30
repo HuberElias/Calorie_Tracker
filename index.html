@@ -14,9 +14,9 @@
 
     <input placeholder="Kalorien / 100g", id="kcal"> kcal</input><br>
     <input placeholder="Gramm", id="gram"> g</input><br>
-    <input placeholder="Eiweiß (Protein)", id="protein"> %</input><br>
-    <input placeholder="Fett (Fat)", id="fat"> %</input><br>
-    <input placeholder="Kohlenhydrate", id="carbs"> %</input><br>
+    <input placeholder="Eiweiß (Protein)", id="protein"> % Protein</input><br>
+    <input placeholder="Fett (Fat)", id="fat"> % Fat</input><br>
+    <input placeholder="Kohlenhydrate (Carbs)", id="carbs"> % Carbs</input><br>
 
     <button type="button", onclick="on_hinzufugen_click()">Hinzufügen</button>
     <button type="button", onclick="on_test_click()">print localstorage</button><br>
@@ -31,11 +31,14 @@
             localStorage.setItem("protein", 0)
             localStorage.setItem("fat", 0)
             localStorage.setItem("carbs", 0)
+            localStorage.setItem("others", 0)
         }
         
 
         function on_hinzufugen_click(){
-            calculate()
+            calculate_kcal()
+            calculate_makros()
+            localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
         }
 
         function on_test_click(){
@@ -46,12 +49,13 @@
             document.getElementById("ergebnisse").innerHTML = "asoifdh"
         }
 
-        function calculate(){
-            localStorage.setItem("kcal", Number(localStorage.getItem("kcal")) + Number(document.getElementById("kcal").value))
-            localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
-            localStorage.setItem("protein", Number(localStorage.getItem("protein")) + Number(document.getElementById("protein").value))
-            localStorage.setItem("fat", Number(localStorage.getItem("fat")) + Number(document.getElementById("fat").value))
-            localStorage.setItem("carbs", Number(localStorage.getItem("carbs")) + Number(document.getElementById("carbs").value))
+        function calculate_kcal(){
+            kcal_now = Number(document.getElementById("kcal").value) * (Number(document.getElementById("gram").value) / 100)
+            localStorage.setItem("kcal", Number(localStorage.getItem("kcal")) + kcal_now)
+        }
+
+        function calculate_makros(){
+            
         }
 
         function reset_local_storage(){
@@ -60,6 +64,7 @@
             localStorage.setItem("protein", 0)
             localStorage.setItem("fat", 0)
             localStorage.setItem("carbs", 0)
+            localStorage.setItem("others", 0)
         }
     </script>
 
