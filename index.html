@@ -1,3 +1,4 @@
+<!--https://huberelias.github.io/Calorie_Tracker/-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +9,56 @@
 </head>
 <body>
     <h1>Kalorien Tracker</h1>
-    <input placeholder="Kalorien / 100g"> kcal</input><br>
-    <input placeholder="Gramm"> g</input><br>
-    <input placeholder="Eiweiß (Protein)"> %</input><br>
-    <input placeholder="Fett (Fats)"> %</input><br>
-    <input placeholder="Kohlenhydrate"> %</input><br>
 
-    <button type="button">Hinzufügen</button>
+    <button type="button", onclick="reset_local_storage()">Neuer Tag</button><br>
+
+    <input placeholder="Kalorien / 100g", id="kcal"> kcal</input><br>
+    <input placeholder="Gramm", id="gram"> g</input><br>
+    <input placeholder="Eiweiß (Protein)", id="protein"> %</input><br>
+    <input placeholder="Fett (Fat)", id="fat"> %</input><br>
+    <input placeholder="Kohlenhydrate", id="carbs"> %</input><br>
+
+    <button type="button", onclick="on_hinzufugen_click()">Hinzufügen</button>
+    <button type="button", onclick="on_test_click()">print localstorage</button><br>
+    <button type="button", onclick="show_ergebnisse()">Ergebnisse</button>
+
+    <p id="ergebnisse">...</p>
+
+    <script>
+        localStorage.setItem("kcal", 0)
+        localStorage.setItem("gram", 0)
+        localStorage.setItem("protein", 0)
+        localStorage.setItem("fat", 0)
+        localStorage.setItem("carbs", 0)
+
+        function on_hinzufugen_click(){
+            calculate()
+        }
+
+        function on_test_click(){
+            console.log(localStorage)
+        }
+
+        function show_ergebnisse(){
+            document.getElementById("ergebnisse").innerHTML = "asoifdh"
+        }
+
+        function calculate(){
+            localStorage.setItem("kcal", Number(localStorage.getItem("kcal")) + Number(document.getElementById("kcal").value))
+            localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
+            localStorage.setItem("protein", Number(localStorage.getItem("protein")) + Number(document.getElementById("protein").value))
+            localStorage.setItem("fat", Number(localStorage.getItem("fat")) + Number(document.getElementById("fat").value))
+            localStorage.setItem("carbs", Number(localStorage.getItem("carbs")) + Number(document.getElementById("carbs").value))
+        }
+
+        function reset_local_storage(){
+            localStorage.setItem("kcal", 0)
+            localStorage.setItem("gram", 0)
+            localStorage.setItem("protein", 0)
+            localStorage.setItem("fat", 0)
+            localStorage.setItem("carbs", 0)
+        }
+    </script>
 
 </body>
 </html>
