@@ -10,21 +10,27 @@
 <body>
     <h1>Kalorien Tracker</h1>
 
-    <button type="button", onclick="reset_local_storage()">Neuer Tag</button><br>
+    <button type="button", onclick="neuer_tag()">Neuer Tag</button><br>
 
-    <input placeholder="Kalorien / 100g", id="kcal"> kcal</input><br>
+    <input placeholder="Kalorien / 100g", id="kcal"> kcal/100g</input><br>
     <input placeholder="Gramm", id="gram"> g</input><br>
     <input placeholder="Eiweiß (Protein)", id="protein"> % Protein</input><br>
     <input placeholder="Fett (Fat)", id="fat"> % Fat</input><br>
     <input placeholder="Kohlenhydrate (Carbs)", id="carbs"> % Carbs</input><br>
 
     <button type="button", onclick="on_hinzufugen_click()">Hinzufügen</button>
-    <button type="button", onclick="on_test_click()">print localstorage</button><br>
-    <button type="button", onclick="show_ergebnisse()">Ergebnisse</button>
 
-    <p id="ergebnisse">...</p>
+    <h2>Ergebnisse</h2>
+    <p id="kcal_erg">0 kcal</p>
+    <p>davon</p>
+    <p id="protein_erg">0% Proteine</p>
+    <p id="fat_erg">0% Fats</p>
+    <p id="carbs_erg">0% Carbs</p>
+    <p id="others_erg">0% Others</p>
 
     <script>
+        show_ergebnisse()
+
         if(!localStorage.getItem("kcal")){
             localStorage.setItem("kcal", 0)
             localStorage.setItem("gram", 0)
@@ -39,14 +45,16 @@
             calculate_kcal()
             calculate_makros()
             localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
-        }
 
-        function on_test_click(){
-            console.log(localStorage)
+            show_ergebnisse()
         }
 
         function show_ergebnisse(){
-            document.getElementById("ergebnisse").innerHTML = "asoifdh"
+            document.getElementById("kcal_erg").innerHTML = localStorage.getItem("kcal") + " kcal"
+            document.getElementById("protein_erg").innerHTML = localStorage.getItem("protein") + "% Proteine"
+            document.getElementById("fat_erg").innerHTML = localStorage.getItem("fat") + "% Fats"
+            document.getElementById("carbs_erg").innerHTML = localStorage.getItem("carbs") + "% Carbs"
+            document.getElementById("others_erg").innerHTML = localStorage.getItem("others") + "% Others"
         }
 
         function calculate_kcal(){
@@ -56,6 +64,11 @@
 
         function calculate_makros(){
             
+        }
+
+        function neuer_tag(){
+            reset_local_storage()
+            show_ergebnisse()
         }
 
         function reset_local_storage(){
