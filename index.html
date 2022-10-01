@@ -5,22 +5,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Kalorien Tracker</title>
 </head>
 <body>
-    <h1>Kalorien Tracker</h1>
+    <div>
+    <h1 class="uberschriften">Kalorien Tracker</h1>
 
-    <button type="button", onclick="neuer_tag()">Neuer Tag</button><br>
 
-    <input placeholder="Kalorien / 100g", id="kcal"> kcal/100g</input><br>
-    <input placeholder="Gramm", id="gram"> g</input><br>
-    <input placeholder="Eiweiß (Protein)", id="protein"> % Protein</input><br>
-    <input placeholder="Fett (Fat)", id="fat"> % Fat</input><br>
-    <input placeholder="Kohlenhydrate (Carbs)", id="carbs"> % Carbs</input><br>
 
-    <button type="button", onclick="on_hinzufugen_click()">Hinzufügen</button>
+<span class="input">
+    <input type="text" class="in" placeholder="Kalorien / 100g", id="kcal"> kcal/100g</input>
+    <span></span>
+</span>
+    <input type="input" class="in" placeholder="Gramm", id="gram"> g</input><br>
+    <input type="input" class="in" placeholder="Eiweiß (Protein)", id="protein"> % Protein</input><br>
+    <input type="input" class="in" placeholder="Fett (Fat)", id="fat"> % Fat</input><br>
+    <input type="input" class="in" placeholder="Kohlenhydrate (Carbs)", id="carbs"> % Carbs</input><br>
 
-    <h2>Ergebnisse</h2>
+
+
+    
+    <button type="button", onclick="on_hinzufugen_click()", class="glow-on-hover" >Hinzufügen</button><br>
+    <button type="button", onclick="neuer_tag()", class="glow-on-hover" >Neuer Tag</button>
+
+    <h2 class="uberschriften">Ergebnisse</h2>
+
     <p id="kcal_erg">0 kcal</p>
     <p>davon</p>
     <p id="protein_erg">0% Proteine</p>
@@ -80,6 +90,6 @@
             localStorage.setItem("others", 0)
         }
     </script>
-
+</div>
 </body>
 </html>
