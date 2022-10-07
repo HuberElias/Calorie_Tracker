@@ -20,12 +20,12 @@
             <div id="main">
                 <h2 class="uberschriften">Eingabe der Mahlzeit</h2>
 
-                <input placeholder="Kalorien / 100g",        id="kcal"> kcal/100g</input><br>
-                <input placeholder="Gramm",                  id="gram"> g</input><br>
-                <input placeholder="Eiweiß (Protein)",       id="protein"> % Protein</input><br>
-                <input placeholder="Fett (Fat)",             id="fat"> % Fat</input><br>
-                <input placeholder="Kohlenhydrate (Carbs)",  id="carbs"> % Carbs</input><br>
-                <input placeholder="Others",                 id="others"> % Others</input><br>
+                <input type="input" placeholder="Kalorien / 100g",        id="kcal"> kcal/100g</input><br>
+                <input type="input" placeholder="Gramm",                  id="gram"> g</input><br>
+                <input type="input" placeholder="Eiweiß (Protein)",       id="protein"> % Protein</input><br>
+                <input type="input" placeholder="Fett (Fat)",             id="fat"> % Fat</input><br>
+                <input type="input" placeholder="Kohlenhydrate (Carbs)",  id="carbs"> % Carbs</input><br>
+                <input type="input" placeholder="Others",                 id="others"> % Others</input><br>
 
                 <button type="button", onclick="on_hinzufugen_click()", class="glow-on-hover" >Hinzufügen</button><br>
                 <button type="button", onclick="tag_speichern()", class="glow-on-hover" >Tag speichern</button><br>
@@ -42,6 +42,9 @@
                 <p id="others_erg">0% Others</p>
             </div>
         </div>
+        <div class="error">
+            <h4 id="error"> </h4>
+        </div>
     </div>
     <script>
         show_ergebnisse()
@@ -57,11 +60,25 @@
         
 
         function on_hinzufugen_click(){
-            calculate_kcal()
-            calculate_makros()
-            localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
+            if(document.getElementById("kcal").value == "" || document.getElementById("gram").value == "" || document.getElementById("protein").value == "" || document.getElementById("fat").value == "" || document.getElementById("carbs").value == "" || document.getElementById("others").value == ""){
+                show_error("Es müssen alle Felder angegeben werden!")
+            }
+            else{
+                if (Number(document.getElementById("protein").value) + Number(document.getElementById("fat").value) + Number(document.getElementById("carbs").value) + Number(document.getElementById("others").value) == 100){
+                    show_error(" ")
+                    calculate_kcal()
+                    calculate_makros("protein")
+                    calculate_makros("fat")
+                    calculate_makros("carbs")
+                    calculate_makros("others")
+                    localStorage.setItem("gram", Number(localStorage.getItem("gram")) + Number(document.getElementById("gram").value))
 
-            show_ergebnisse()
+                    show_ergebnisse()
+                }
+                else{
+                    show_error("Makros müssen insgesamt 100% sein!")
+                }
+            }
         }
 
         function show_ergebnisse(){
@@ -77,21 +94,20 @@
             localStorage.setItem("kcal", Number(localStorage.getItem("kcal")) + kcal_now)
         }
 
-        function calculate_makros(){
-            let grams_before = Number(localStorage.getItem("gram"))
-            let protein_percent_before = Number(localStorage.getItem("protein"))
-            let protein_gram_before = grams_before*(protein_percent_before/100)
- 
-            let grams_added = Number(document.getElementById("gram"))
-            let protein_percent_added = Number(document.getElementById("protein"))
-            let protein_gram_added = grams_added*(protein_percent_added/100)
- 
-            let grams_new = grams_before + grams_added
-            let protein_gram_new = protein_gram_before + protein_gram_added
-            let protein_percent_new = (protein_gram_new*100)/grams_new
-            console.log(grams_before)
+        function calculate_makros(makro){
+            grams_before = Number(localStorage.getItem("gram"))
+            protein_percent_before = Number(localStorage.getItem(makro))
+            protein_gram_before = grams_before*(protein_percent_before/100)
 
-            localStorage.setItem("protein", protein_percent_new)
+            grams_added = Number(document.getElementById("gram").value)
+            protein_percent_added = Number(document.getElementById(makro).value)
+            protein_gram_added = grams_added*(protein_percent_added/100)
+
+            grams_new = grams_before + grams_added
+            protein_gram_new = protein_gram_before + protein_gram_added
+            protein_percent_new = (protein_gram_new*100)/grams_new
+
+            localStorage.setItem(makro, protein_percent_new.toFixed(2))
         }
 
         function neuer_tag(){
@@ -100,16 +116,20 @@
         }
 
         function tag_speichern(){
-            
+            console.log(localStorage)
+        }
+
+        function show_error(message){
+            document.getElementById("error").innerHTML = message
         }
 
         function reset_local_storage(){
             localStorage.setItem("kcal", 0)
             localStorage.setItem("gram", 0)
-            localStorage.setItem("protein", 100)
-            localStorage.setItem("fat", 100)
-            localStorage.setItem("carbs", 100)
-            localStorage.setItem("others", 100)
+            localStorage.setItem("protein", 0)
+            localStorage.setItem("fat", 0)
+            localStorage.setItem("carbs", 0)
+            localStorage.setItem("others", 0)
         }
     </script>
 </body>

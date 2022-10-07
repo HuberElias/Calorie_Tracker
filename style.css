@@ -3,6 +3,16 @@
     color: #48ff00;
 }
 
+#error{
+	margin: 0px;
+	text-align: center;
+	color: #e50f0f;
+}
+.error{
+	width: fit-content;
+	margin: auto;
+}
+
 #wrapper{
 	margin: auto;
 	width: fit-content;
@@ -18,12 +28,14 @@
 
 #main{
 	vertical-align: top;
+	margin: auto;
 	margin-inline: 20px;
 	display: inline-block;
-	background-color: #3131312f;
+	background-color: #31313147;
 	padding-left: 20px;
 	padding-right: 20px;
 	height: 320px;
+	margin-bottom: 20px;
 }
 
 
