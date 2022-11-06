@@ -86,7 +86,7 @@
 
         function calculate_makros(makro){
             makro_now = Number(document.getElementById(makro).value) * (Number(document.getElementById("gram").value) / 100)
-            localStorage.setItem(makro, makro_now)
+            localStorage.setItem(makro, Number(localStorage.getItem(makro)) + makro_now)
             /*grams_before = Number(localStorage.getItem("gram"))
             protein_percent_before = Number(localStorage.getItem(makro))
             protein_gram_before = grams_before*(protein_percent_before/100)
